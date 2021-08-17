@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">  
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet" />
+    <title>Banking App</title>
+    <style>
+
+         @media (max-width: 800px) {
+            .design{
+                margin: 0 !important;
+             }
+            th {
+                padding: 0px 5px 0px 5px;
+                font-size: small;
+            }
+            td {
+                font-size: small;
+            }
+        }   
+
+        th {
+            padding: 5px 10px 5px 10px;
+        }
+        td {
+            padding: 5px;
+        }
+        .row {
+            grid-template-columns: repeat( auto-fit, minmax(33.33%, 1fr) );
+            padding: 10px;
+        }
+
+        .bank {
+            background-color: #DCDCDC;
+            border: solid;
+            margin: 5px;
+            padding: 50px;
+            border-radius:6px;
+            -moz-border-radius:6px;
+            border-color: #696969;
+            min-height: 500px;
+            width: max-content;
+
+        }
+
+        #bank_title {
+            color: 	#282828;
+        }
+
+        #user_info {
+            display: block;
+            background-color: #DCDCDC;
+            border: solid;
+            width: 280px;
+            height: max-content;
+            padding: 5px;
+            border-radius:6px;
+            -moz-border-radius:6px;
+            border-color: #696969;
+            
+            text-align: center;
+        }
+
+        .enter_balance {
+            background: #F5F5F5;
+            border: 1px solid black;
+            border-radius: 5px;
+            padding: 2px;
+            margin: 5px;
+        }
+
+        #submit_balance {
+            background: #E4E1E1;
+            border: 1px solid black;
+            border-radius: 5px;
+        }
+
+        table {
+            border-collapse: separate;
+            border: solid black 1px;
+            border-radius: 6px;
+            -moz-border-radius: 6px;
+        }
+
+        td, th {
+            border-left:solid black 1px;
+            border-top:solid black 1px;
+        }
+
+        th {
+            background-color: #AEA7A7;
+            border-top: none;
+        }
+
+        td:first-child, th:first-child {
+            border-left: none;
+        }
+
+        .trans_type {
+            background: #E4E1E1;
+            border: 1px solid black;
+            border-radius: 5px;
+            padding: 2px;
+            margin: 5px;
+        }
+
+        .submit_trans {
+            background: #E4E1E1;
+            border: 1px solid black;
+            border-radius: 5px;
+            padding: 5px;
+            margin: 5px;
+            width: 67px;
+        }
+
+        .transaction {
+            background: #F5F5F5;
+            border: 1px solid black;
+            border-radius: 5px;
+        }
+
+        ._hidden {
+            display: none !important;
+        }
+
+        .design {
+            min-height: 750px;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+            border-radius: 20px;
+            background-color: #e5e5f7;
+            margin-top: 2%;
+            margin-right: 20%;
+            margin-left: 20%;
+            width: 100%;
+            min-width: max-content;
+        }
+        
+        ._container{
+            width: 100%; 
+            margin-top: 2%; 
+            margin-bottom: 2%;
+            min-height: 800px; 
+            display: flex !important; 
+            align-items: center !important; 
+            justify-content: center;
+        }
+
+        .pads {
+            padding-bottom: 20px;
+        }
+
+        .toast {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            margin: auto;
+            z-index: 1;
+            max-width: 500px;
+            padding: 10px;
+            background: #cccccc;
+            color: #333333;
+            font-family: sans-serif;
+            text-align: center;
+            border: 2px solid #aaaaaa;
+            border-radius: 2px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+
+            visibility: hidden;
+            opacity: 0;
+            transition: opacity 0.2s, top 0.2s, visibility 0.2s;
+            }
+
+            .toast--visible {
+            top: 20px;
+            opacity: 1;
+            visibility: visible !important;
+            display:block !important;
+            }
+
+            .toast--notification {
+            background: #d4bc94;
+            border-color:8px solid #ffa502;
+            color: #000000;
+            text-align: center !important;
+            align-items: center;
+            }
+
+            .toast--error {
+            background: #d50000;
+            border-color: #ba0000;
+            color: #000000;
+        }
+    </style>
+</head>
+<body>
+    
+    <div class="_container" id="container"> 
+        <div class="card-body design py-2">
+            <div style="padding: 20px">
+                <div class="d-flex align-items-end flex-column" id="user_logo">
+                    <i class="fas fa-user-circle fa-2x"></i>
+                </div>
+                <p id="bank_title" class="text-center display-4 my-0 success">
+                    CELO BANK
+                </p>
+                <br>
+                <p class="text-center small fs-5">
+                    The Blockchain Bank
+                </p>
+                
+            </div>
+
+    
+            <br>
+            <div class="d-flex justify-content-center"> 
+                <div id="user_info">
+                    <p><h5>Create New Account</h5></p>
+                    <form id="balance_form" style="padding-bottom: 10px;">
+                        <input   type="text" name="create_user" id="create_user" class="create_user" placeholder="Enter Username"><br><br>
+                        <input type="button" value="submit" id="submit_user_name" form="balance_form">
+                    </form>
+                </div>
+            </div>
+            <div id="account_details" class="_hidden">
+                <div class="mb-2" id="selectToggle">
+                    <select class="form-select toggler" id="selectAccount" aria-label="accounts">
+                    <option value="Checking" data-r-show-target=".opt-1" data-r-hide-target=".opt-2">Checking Account</option>
+                    <option value="Savings" data-r-show-target=".opt-2" data-r-hide-target=".opt-1">Savings Account</option>
+                    </select>
+                </div>
+                
+                <div class="pads row d-flex justify-content-center">
+                    <div class="bank opt-1"  id="checking_info" data-response="op1">
+                        <h2>Checking Account</h2>
+                        <p id="current_checking_balance">Current Balance: </p>
+                        <div id="enter_transaction">
+                            <form id="transaction_form">
+                                AMOUNT:<br>
+                                <input type="number" name="transaction_amount" id="transaction_amount" class="transaction"><br>
+                                <div id="receiver_account">
+                                    ACCOUNT NAME:<br>
+                                    <input style="text-transform: uppercase" type="text" name="receiver_description" id="receiver_description" class="transaction"><br>
+                                </div>
+                                <div id="desc">
+                                    DESCRIPTION:<br>
+                                    <input style="text-transform: uppercase" type="text" name="transaction_description" id="transaction_description" class="transaction"><br>
+                                </div>
+                                <select name="transaction_type" id="transaction_type" class="trans_type">
+                                    <option value="Debit">SEND MONEY</option>
+                                    <option value="Deposit">DEPOSIT</option>
+                                    <option value="Withdraw">WITHDRAW</option>  
+                                    <option value="Transfer">TRANSFER</option>
+                                </select>
+                                <input type="button" value="Submit" id="submit_transaction" form="transaction_form" class="submit_trans">
+                            </form>
+                            <br>
+                        </div>
+                        <div class="d-flex justify-content-center">
+                            <table id="trans_table">
+                                <tr class="top_of_table">
+                                    <th>TRANSACTION TYPE</th>
+                                    <th>DESCRIPTION</th>
+                                    <th>SENDER</th>
+                                    <th>RECEIVER</th>
+                                    <th>AMOUNT</th>
+                                    <th>BALANCE</th>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="pads bank opt-2 _hidden" id="savings_info" data-response="op2">
+                        <h2>Savings Account</h2>
+                        <p id="current_savings_balance">Current Balance: </p>
+                        <div id="enter_transaction_savings">
+                            <form id="transaction_form_savings">
+                                AMOUNT:<br>
+                                <input type="number" name="transaction_amount" id="transaction_amount_savings" class="transaction"><br>
+                                <select name="transaction_type" id="transaction_type_savings" class="trans_type">
+                                    <option value="Transfer">TRANSFER</option>
+                                    <option value="Deposit">DEPOSIT</option>
+                                </select>
+                                <input type="button" value="Submit" id="submit_transaction_savings" form="transaction_form" class="submit_trans">
+                            </form>
+                            <br>
+                        </div>
+                        <div class="d-flex justify-content-center">
+                            <table id="trans_table_savings">
+                                <tr class="top_of_table">
+                                    <th>TRANSACTION TYPE</th>
+                                    <th>DESCRIPTION</th>
+                                    <th>SENDER</th>
+                                    <th>RECEIVER</th>
+                                    <th>AMOUNT</th>
+                                    <th>BALANCE</th>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>    
+        </div>
+    </div>
+    
+     <!-- JQuery -->
+     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+     <!--FOnt Awesome-->
+     <script src="https://kit.fontawesome.com/51e25ca251.js" crossorigin="anonymous"></script>
+     <!-- JavaScript Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
+     <!--Blockies-->
+     <script src="https://unpkg.com/ethereum-blockies@0.1.1/blockies.min.js"></script>
+
+ 
+
+<script type="text/javascript" src="main.js"></script></body>
+</html>
