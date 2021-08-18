@@ -1,6 +1,10 @@
 
 # Bank-Dapp
 
+# DEMO 👇
+
+https://mercurylit.github.io/Bank-Dapp/
+
 ```
 This is a Banking application, that was built on the Celo Blockchain. It supports all the functionalities of a "real life" banking application, where users can deposit, save, withdraw and send money to other signed up users on the application.
 After connecting to the Dapp, it checks if the account has signed up before, if not it requests that the user enters a username, that will be mapped to the user's wallet address, after this is done, the user then has access to the banking functionalities and is now signed up to the dapp.
