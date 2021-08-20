@@ -49,21 +49,26 @@
 		"outputs": [
 			{
 				"internalType": "string",
-				"name": "",
+				"name": "_userName",
 				"type": "string"
 			},
 			{
 				"internalType": "uint256",
-				"name": "",
+				"name": "savingsBalance",
 				"type": "uint256"
 			},
 			{
 				"internalType": "uint256",
-				"name": "",
+				"name": "checkingBalance",
 				"type": "uint256"
 			},
 			{
 				"components": [
+					{
+						"internalType": "uint256",
+						"name": "date",
+						"type": "uint256"
+					},
 					{
 						"internalType": "string",
 						"name": "transactiontype",
@@ -96,12 +101,17 @@
 					}
 				],
 				"internalType": "struct bankDapp.TransactionsRecords[]",
-				"name": "",
+				"name": "_savingsRecords",
 				"type": "tuple[]"
 			},
 			{
 				"components": [
 					{
+						"internalType": "uint256",
+						"name": "date",
+						"type": "uint256"
+					},
+					{
 						"internalType": "string",
 						"name": "transactiontype",
 						"type": "string"
@@ -133,7 +143,7 @@
 					}
 				],
 				"internalType": "struct bankDapp.TransactionsRecords[]",
-				"name": "",
+				"name": "_checkingsRecords",
 				"type": "tuple[]"
 			}
 		],
