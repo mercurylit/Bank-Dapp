@@ -22,6 +22,7 @@ contract bankDapp{
   uint internal savingsID = 2; // To indicate that account type is savings
 
   struct TransactionsRecords {
+    uint date;
     string transactiontype;
     string description;
     string sender;
@@ -100,6 +101,8 @@ contract bankDapp{
     transactions.description = "";
     transactions.sender = "";
     transactions.recipient = "";
+    //Showing time the transaction took place
+    transactions.date = block.timestamp;
 
     if(_accountID == checkingsID){
       AccountTypes storage _checkings = accounts[msg.sender].accountType[checkingsID];
@@ -144,6 +147,8 @@ contract bankDapp{
     transactions.description = "";
     transactions.sender = "";
     transactions.recipient = "";
+    //Showing time the transaction took place
+    transactions.date = block.timestamp;
 
     if(_accountID == checkingsID){
       AccountTypes storage _checkings = accounts[msg.sender].accountType[checkingsID];
@@ -166,6 +171,8 @@ contract bankDapp{
   ) public validID(_accountID) enoughBalance(_amount, _accountID){
     transactions.transactiontype = "Transfer";
     transactions.amount = _amount;
+    //Showing time the transaction took place
+    transactions.date = block.timestamp;
 
     if(_accountID == checkingsID){
 
@@ -179,6 +186,8 @@ contract bankDapp{
 
       // To update the transaction details on the Savings End
       accounts[msg.sender].accountType[savingsID].balance += _amount;
+      // Noticed how it was the checking accounts balance that was reflected after transfer to savings is made
+      transactions.balance = accounts[msg.sender].accountType[savingsID].balance;
       transactions.description = _description;
       transactions.sender = "Checking Account";
       transactions.recipient = " ";
@@ -196,6 +205,8 @@ contract bankDapp{
 
       // To update the transaction details on the Checking End
       accounts[msg.sender].accountType[checkingsID].balance += _amount;
+      // Noticed how it was the savings accounts balance that was reflected after transfer to checkings is made
+      transactions.balance = accounts[msg.sender].accountType[checkingsID].balance;
       transactions.description = "Transfer From Checking Account";
       transactions.sender = "Savings Account";
       transactions.recipient = "";
@@ -213,6 +224,8 @@ contract bankDapp{
     
     AccountTypes storage _checkings = accounts[msg.sender].accountType[checkingsID];
     _checkings.balance -= _amount;
+    //Showing time the transaction took place
+    uint date = block.timestamp;
 
     transactions.transactiontype = "Debit";
     transactions.description = _description;
@@ -220,6 +233,7 @@ contract bankDapp{
     transactions.balance = _checkings.balance;
     transactions.sender = "";
     transactions.recipient = _userName;
+    transactions.date = date;
     _checkings.records.push(transactions);
 
     // Sending Transaction details to Recipient
@@ -231,6 +245,7 @@ contract bankDapp{
     transactions.balance = _recipientCheckings.balance;
     transactions.sender = _sender;
     transactions.recipient = " ";
+    transactions.date = date;
     _recipientCheckings.records.push(transactions);
   }
   

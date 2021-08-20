@@ -6,7 +6,7 @@ import erc20Abi from "../contract/erc20.abi.json"
 
 // Smart contract variables
 const ERC20_DECIMALS = 18
-const BDContractAddress = "0xDF80e13DE836B4896bE43Ed0Fb7353a2E89a47Ec"
+const BDContractAddress = "0x6D56fbc89F8Ba092e91280e86ff8dC488159a562"
 const cUSDContractAddress = "0x874069Fa1Eb16D44d622F2e0Ca25eeA172369bC1"
 
 let accountDetails = {};
@@ -294,15 +294,26 @@ let savingsAccount = {
     }
 }
 
+// Function To convert the time
+function convertTime(secs){
+    let dateObj = new Date(secs*1000);
+
+    let date = dateObj.toLocaleDateString('en-us', {weekday: 'short', year: 'numeric', month:'short', day: 'numeric'});
+    let time = dateObj.toLocaleString('en-us', { hour: 'numeric', minute: 'numeric', hour12: true})
+    return date+', '+time;
+}
+
 function printTable(tableId, account) {
     // Prints items to table as they are entered.
     let newRow = tableId.insertRow(-1);5
-    let newCell1 = newRow.insertCell(0);
-    let newCell2 = newRow.insertCell(1);
-    let newCell3 = newRow.insertCell(2);
-    let newCell4 = newRow.insertCell(3);
-    let newCell5 = newRow.insertCell(4);
-    let newCell6 = newRow.insertCell(5);
+    let newCell0 = newRow.insertCell(0);
+    let newCell1 = newRow.insertCell(1);
+    let newCell2 = newRow.insertCell(2);
+    let newCell3 = newRow.insertCell(3);
+    let newCell4 = newRow.insertCell(4);
+    let newCell5 = newRow.insertCell(5);
+    let newCell6 = newRow.insertCell(6);
+    newCell0.innerHTML = convertTime(account.allTransactions[account.allTransactions.length - 1].date);
     newCell1.innerHTML = account.allTransactions[account.allTransactions.length - 1].transactiontype.toUpperCase();
     newCell5.innerHTML = `$${new BigNumber(account.allTransactions[account.allTransactions.length - 1].amount).shiftedBy(-ERC20_DECIMALS).toFixed(2)}`;
     newCell6.innerHTML = `$${new BigNumber(account.allTransactions[account.allTransactions.length - 1].balance).shiftedBy(-ERC20_DECIMALS).toFixed(2)}`;    
@@ -329,13 +340,14 @@ function printTableList(tableId, account) {
     let txLength = account.allTransactions.length;
     for (let i = 0; i < txLength; i++){
         let newRow = tableId.insertRow(-1);5
-        let newCell1 = newRow.insertCell(0);
-        let newCell2 = newRow.insertCell(1);
-        let newCell3 = newRow.insertCell(2);
-        let newCell4 = newRow.insertCell(3);
-        let newCell5 = newRow.insertCell(4);
-        let newCell6 = newRow.insertCell(5);
-
+        let newCell0 = newRow.insertCell(0);
+        let newCell1 = newRow.insertCell(1);
+        let newCell2 = newRow.insertCell(2);
+        let newCell3 = newRow.insertCell(3);
+        let newCell4 = newRow.insertCell(4);
+        let newCell5 = newRow.insertCell(5);
+        let newCell6 = newRow.insertCell(6);
+        newCell0.innerHTML = convertTime(account.allTransactions[i].date);
         newCell1.innerHTML = account.allTransactions[i].transactiontype.toUpperCase();
         newCell5.innerHTML = `$${new BigNumber(account.allTransactions[i].amount).shiftedBy(-ERC20_DECIMALS).toFixed(2)}`;
         newCell6.innerHTML = `$${new BigNumber(account.allTransactions[i].balance).shiftedBy(-ERC20_DECIMALS).toFixed(2)}`;
