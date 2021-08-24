@@ -6,7 +6,7 @@ import erc20Abi from "../contract/erc20.abi.json"
 
 // Smart contract variables
 const ERC20_DECIMALS = 18
-const BDContractAddress = "0x6D56fbc89F8Ba092e91280e86ff8dC488159a562"
+const BDContractAddress = "0x3Bf36557A878B8f69CbB569dDD2054DC4A60Ef43"
 const cUSDContractAddress = "0x874069Fa1Eb16D44d622F2e0Ca25eeA172369bC1"
 
 let accountDetails = {};
@@ -509,7 +509,7 @@ function runTransferSavings() {
         } else if (howMuch <= 0) {
             notification("⚠️ Enter Amount.");
         } else {
-            alert(`${howMuch}`);
+    
             if (bal >= howMuch) {
                 savingsAccount.transfer(howMuch, id, desc);
             } else {
@@ -591,7 +591,7 @@ function identiconTemplate(_address) {
         </div>
     </div>
     <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-        <li><a class="dropdown-item" >User Name: ${accountDetails.userName} </a></li>
+        <li><a class="dropdown-item" >User Name: ${accountDetails.userName || "user"} </a></li>
         <li>
             <a class="dropdown-item" href="https://alfajores-blockscout.celo-testnet.org/address/${_address}/transactions"
             target="_blank"> View on Blockchain
